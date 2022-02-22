@@ -36,6 +36,27 @@ services:
     environment:
       KAFKA_BROKERCONNECT: kafka:29092
 
+  payment:
+    image: valdircezar/payment:1.0.1
+    networks:
+      - broker-kafka
+    depends_on:
+      - kafka
+    ports:
+      - "8000:8000"
+    environment:
+      KAFKA_HOST: kafka:29092
+
+  consumer:
+    image: valdircezar/json-consumer:1.0.1
+    networks:
+      - broker-kafka
+    depends_on:
+      - kafka
+      - payment
+    environment:
+      KAFKA_HOST: kafka:29092
+
 networks:
   broker-kafka:
     driver: bridge
