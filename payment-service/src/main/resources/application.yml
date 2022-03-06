@@ -3,4 +3,3 @@ server:
 spring:
   kafka:
     bootstrap-servers: ${KAFKA_HOST:localhost:29092}
-cle
